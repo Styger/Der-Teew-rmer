@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Tee Aufwärmen</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <h1 class="w3-center">Der Teewasser Wärmer</h1>
+    <nav class="w3-bar w3-light-grey">
+        <a href="#information" class="w3-bar-item w3-button">Information</a>
+        <a href="#wassererhitzen" class="w3-bar-item w3-button">Wassererhitzen Eingabe</a>
+        <a href="#ausgabebereich" class="w3-bar-item w3-button">Ausgabebereich</a>
+        <a href="#history" class="w3-bar-item w3-button">Verlauf</a>
+    </nav>
+    <img alt="Teetasse" src="images/tee2.jpeg" class="w3-image">
+    <main class="w3-container">
+    <section id="information" class="w3-container">
+        <h2>Information</h2>
+        <p>In dieser Webseite geht es um Tee und insbesonder wie lange es geht um Wasser ganz genau auf eine bestimmte
+            Temperatur zu erhitzen.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Teesorte</th>
+                    <th scope="col">Aufbrühtemperatur</th>
+                    <th scope="col">Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Grüner Tee</td>
+                    <td>70&#8722;85 °C </td>
+                    <td>Grüner Tee sollte nicht mit kochendem Wasser zubereitet werden, da dies zu einem bitteren
+                        Geschmack führen kann. Eine etwas niedrigere Temperatur erhält die Frische und das Aroma.</td>
+                </tr>
+                <tr>
+                    <td>Schwarzer Tee</td>
+                    <td>90&#8722;95 °C </td>
+                    <td>Schwarzer Tee kann mit heisserem Wasser aufgebrüht werden als grüner Tee. Dies hilft, die Aromen
+                        besser zu extrahieren.</td>
+                </tr>
+                <tr>
+                    <td>Oolong-Tee</td>
+                    <td>85&#8722;90 °C </td>
+                    <td>Oolong-Tee liegt zwischen grünem und schwarzem Tee. Die Aufbrühtemperatur kann je nach
+                        Oolong-Varietät variieren.</td>
+                </tr>
+                <tr>
+                    <td>Weisser Tee</td>
+                    <td>80&#8722;85 °C </td>
+                    <td>Weisser Tee hat eine zarte Geschmacksnote, daher wird empfohlen, ihn bei einer etwas niedrigeren
+                        Temperatur aufzubrühen.</td>
+                </tr>
+                <tr>
+                    <td>Kräutertee und Früchtetee</td>
+                    <td>100 °C </td>
+                    <td>Kräutertees und Früchtetees können mit kochendem Wasser aufgebrüht werden, da sie oft keine
+                        echten Teeblätter enthalten.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+        <section id="wassererhitzen" class="w3-container">
+            <h2>Berechnung der Zeit zum Wassererhitzen</h2>
+            <p>Geben Sie im Formular die Leistung in Watt ihres Wasserkochers an, die Menge in ML und die Anfangs und
+                Endtemperatur</p>
+            <fieldset >
+                <legend><strong>Parameter</strong></legend>
+                <label for="power">Leistung (Watt):</label>
+                <br>
+                <input id="power" type="number" min="10" max="10000" value="1000" required>
+                <br>
+                <p id="errorPower" class="error"></p>
+                <label for="mass">Milliliter (ml):</label>
+                <br>
+                <input id="mass" type="number" min="10" max="10000" value="1000" required>
+                <br>
+                <p id="errorMass" class="error"></p>
+                <label for="initialTemp">Anfangstemperatur (°C):</label>
+                <br>
+                <input id="initialTemp" type="number" min="1" max="100" value="24" required>
+                <br>
+                <p id="errorInitialTemp" class="error"></p>
+                <label for="finalTemp">Endtemperatur (°C):</label>
+                <br>
+                <select id="finalTemp" min="1" max="100" required>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                </select>
+                <p id="errorFinalTemp" class="error"></p>
+                <br>
+                <input type="checkbox" id="historyCheckbox" name="historyCheckbox" checked>
+                <label for="historyCheckbox">Im Verlauf anzeigen</label>
+            </fieldset>
+        </section>
+        <section id="ausgabebereich" class="w3-container">
+            <fieldset>
+                <legend><strong>Berechnung</strong></legend>
+                <p>Benötigte Zeit zum Erhitzen: <span id="outputTime"></span></p>
+            </fieldset>
+
+            <fieldset>
+                <legend><strong>Berechnen</strong></legend>
+                <button type="button" onclick="validateAndCalculate()">Berechne Zeit</button>
+            </fieldset>
+            <p>Wenn das Resultat unter einer Stunde liegt, repräsentiert die Uhr eine Stunde. Falls das Resultat über einer Stunde liegt repräsentiert die Uhr 12 Stunden.</p>
+            <canvas id="clockCanvas0" width="300" height="300"></canvas>
+        </section>
+        <section id="history" class="w3-container">
+            <h2>Verlauf</h2>
+            <button type="button" onclick="fetchHistory()">Verlauf aktualisieren</button>
+            <div id="historyTable"></div>
+        </section>
+
+    </main>
+</body>
+
+</html>
