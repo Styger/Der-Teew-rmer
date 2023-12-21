@@ -48,7 +48,6 @@ function calculateTime($power, $mass, $initialTemp, $finalTemp)
 
 function save_to_database($power, $mass, $initialTemp, $finalTemp, $time, $history)
 {
-    // save_to_database.php
 
     // Verbindung zur Datenbank herstellen
     $conn = mysqli_connect("localhost", "root", "", "History");
@@ -117,8 +116,6 @@ if ($method == "POST") {
     echo json_encode(['time' => $time]);
 
 } else if ($method == "GET") {
-    // get_history.php
-
     // Verbindung zur Datenbank herstellen
     $conn = mysqli_connect("localhost", "root", "", "History");
 
