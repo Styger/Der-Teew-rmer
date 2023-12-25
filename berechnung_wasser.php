@@ -136,7 +136,7 @@ if ($method == "POST") {
         $history[] = $row;
     }
 
-    // Verbindung zur Datenbank schließen
+    // Verbindung zur Datenbank schliessen
     mysqli_close($conn);
 
     // Antwort als JSON zurückgeben

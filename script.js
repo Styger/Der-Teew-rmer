@@ -75,7 +75,6 @@ function update(response) {
     updateClock(seconds, 'clockCanvas0');
 
     fetchHistory();
-
 }
 
 function getCookie(name) {
