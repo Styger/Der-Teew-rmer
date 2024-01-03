@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS wassererhitzung_verlauf (
     mass INT,
     initialTemp INT,
     finalTemp INT,
-    time FLOAT,
+    time INT,
     history BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

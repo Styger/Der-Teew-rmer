@@ -4,24 +4,30 @@ $body = file_get_contents("php://input");
 
 function validate($request)
 {
+    $requiredParams = ['power', 'mass', 'initialTemp', 'finalTemp'];
+    $error = null;
+
     if ($request == null) {
         $error = ['error' => "JSON-Eingabe konnte nicht geparst werden"];
-    } else if (!isset($request['power'])) {
-        $error = ['error' => "Parameter 'power' nicht gesetzt"];
-    } else if (!isset($request['mass'])) {
-        $error = ['error' => "Parameter 'mass' nicht gesetzt"];
-    } else if (!isset($request['initialTemp'])) {
-        $error = ['error' => "Parameter 'initialTemp' nicht gesetzt"];
-    } else if (!isset($request['finalTemp'])) {
-        $error = ['error' => "Parameter 'finalTemp' nicht gesetzt"];
-    } else if (!is_numeric($request['power']) || floatval($request['power']) < 10 || $request['power'] > 10000) {
-        $error = ['error' => "Ungültiger Wert für Parameter 'power'"];
-    } else if (!is_numeric($request['mass']) || floatval($request['mass']) < 10 || $request['mass'] > 10000) {
-        $error = ['error' => "Ungültiger Wert für Parameter 'mass'"];
-    } else if (!is_numeric($request['initialTemp']) || $request['initialTemp'] < 1 || $request['initialTemp'] > 100 || $request['finalTemp'] <= $request['initialTemp']) {
-        $error = ['error' => "Ungültiger Wert für Parameter 'initialTemp'"];
-    } else if (!is_numeric($request['finalTemp']) || $request['finalTemp'] < 1 || $request['finalTemp'] > 100 || $request['finalTemp'] <= $request['initialTemp']) {
-        $error = ['error' => "Ungültiger Wert für Parameter 'finalTemp'"];
+    } else {
+        foreach ($requiredParams as $param) {
+            if (!isset($request[$param])) {
+                $error = ['error' => "Parameter '$param' nicht gesetzt"];
+                break;
+            }
+        }
+
+        if ($error == null) {
+            if (!is_numeric($request['power']) || $request['power'] < 10 || $request['power'] > 10000) {
+                $error = ['error' => "Ungültiger Wert für Parameter 'power'"];
+            } else if (!is_numeric($request['mass']) || $request['mass'] < 10 || $request['mass'] > 10000) {
+                $error = ['error' => "Ungültiger Wert für Parameter 'mass'"];
+            } else if (!is_numeric($request['initialTemp']) || $request['initialTemp'] < 1 || $request['initialTemp'] > 100 || $request['finalTemp'] <= $request['initialTemp']) {
+                $error = ['error' => "Ungültiger Wert für Parameter 'initialTemp'"];
+            } else if (!is_numeric($request['finalTemp']) || $request['finalTemp'] < 1 || $request['finalTemp'] > 100 || $request['finalTemp'] <= $request['initialTemp']) {
+                $error = ['error' => "Ungültiger Wert für Parameter 'finalTemp'"];
+            }
+        }
     }
 
     if (isset($error)) {
@@ -66,13 +72,13 @@ function save_to_database($power, $mass, $initialTemp, $finalTemp, $time, $histo
 
     // Überprüfen, ob die SQL-Query-Vorbereitung erfolgreich war
     if ($stmt) {
-        // "history" als Parameter hinzufügen
+
         mysqli_stmt_bind_param($stmt, 'iiiiii', $power, $mass, $initialTemp, $finalTemp, $time, $history);
 
         // SQL-Query ausführen
         mysqli_stmt_execute($stmt);
 
-        // SQL-Query schließen
+        // SQL-Query schliessen
         mysqli_stmt_close($stmt);
     } else {
         // Fehler beim Vorbereiten der SQL-Query
