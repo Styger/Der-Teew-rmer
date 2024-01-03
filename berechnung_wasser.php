@@ -72,7 +72,7 @@ function save_to_database($power, $mass, $initialTemp, $finalTemp, $time, $histo
 
     // Überprüfen, ob die SQL-Query-Vorbereitung erfolgreich war
     if ($stmt) {
-
+        // 'iiiiii' gibt an das es Integer sind
         mysqli_stmt_bind_param($stmt, 'iiiiii', $power, $mass, $initialTemp, $finalTemp, $time, $history);
 
         // SQL-Query ausführen
