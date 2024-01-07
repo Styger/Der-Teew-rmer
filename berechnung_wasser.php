@@ -131,7 +131,7 @@ if ($method == "POST") {
     }
 
     // SQL-Query zum Abrufen des Verlaufs mit history = true
-    $query = "SELECT id,power,mass,initialTemp,finalTemp,time FROM wassererhitzung_verlauf WHERE history = true ORDER BY created_at DESC";
+    $query = "SELECT id,power,mass,initialTemp,finalTemp,time FROM wassererhitzung_verlauf WHERE history = true ORDER BY id DESC";
 
     // SQL-Query ausführen
     $result = mysqli_query($conn, $query);
